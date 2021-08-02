@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<title>Zendesk</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+    <header class="w3-container w3-green">
+        <h1>Ticket #{{ticket.id}}</h1>
+    </header>
+    <a href="{{ url_for('home') }}" class="w3-btn w3-teal">Back</a>
+    <div class="w3-display-middle" id="whole">
+        <h2>Subject: {{ticket.subject}}</h2>
+        <p>Requester: {{ticket.requester}}</p>
+        <p>Description: {{ticket.description}}</p>
