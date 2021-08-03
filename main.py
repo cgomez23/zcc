@@ -82,7 +82,7 @@ def api_error():
 def ticket():
 
     # get ticket id from URL
-    id = int(request.args.get('id', None))
+    id = request.args.get('id', None)
 
     # gets the ticket view and renders it
     ticket_view = get_ticket_view(id, tickets, users)

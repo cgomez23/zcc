@@ -13,3 +13,6 @@ Install Instructions:
 - Install necessary python packages using the "pip install -r requirements.txt" script
 - Finally, type "python main.py" in the same directory
 - Open http://127.0.0.1:5000/ (if not port 5000, or a different URL, check the output in the terminal for the correct URL)
+- Run the unit tests with "python -m unittest unit_tests"
+
+Note: the Setup folder contains code for uploading the test tickets.
