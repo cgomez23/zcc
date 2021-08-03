@@ -15,4 +15,8 @@ Install Instructions:
 - Open http://127.0.0.1:5000/ (if not port 5000, or a different URL, check the output in the terminal for the correct URL)
 - Run the unit tests with "python -m unittest unit_tests"
 
-Note: the Setup folder contains code for uploading the test tickets.
+Note: 
+- The Setup folder contains code for uploading the test tickets.
+- Error handling:
+    - If you change the creds.json file to unrecognizable credentials, an error page will display.
+    - If you pass an unrecognized id or non-integer value in for the id variable in the ticket URL (e.g. /ticket=True or /ticket=3.4), it will redirect to a user-friendly error page.

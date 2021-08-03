@@ -16,7 +16,7 @@ def get_ticket_list(tickets):
 def get_ticket(id, tickets):
     # id needs to be string from url
     if type(id) != str:
-        raise TypeError('Not a string')
+        raise TypeError('ID Not a string')
     # id must be a string with a numeric character
     if not id.isnumeric():  
         raise TypeError("Not a valid ID")
@@ -49,6 +49,6 @@ def get_ticket_view(id, tickets, users):
 
 # Function to get list of tickets per page
 # args: api ticket objects, int (optional), int (optional) 
-# return: list of 
+# return: list of paginated ticket objects
 def get_tickets_pagination(tickets, offset=0, per_page=25):
     return tickets[offset: offset + per_page]
