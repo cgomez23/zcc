@@ -24,19 +24,18 @@ try:
     # conntect to Zendesk API
     zenpy_client = Zenpy(**creds)
 
-    # get api ticket objects
-    tickets_objs = zenpy_client.tickets()
-    tickets = [t for t in tickets_objs]
-
-    # get api user objects
-    users_objs = zenpy_client.users()
-    users = [u for u in users_objs]
-
 # if credentials login fails, set flag to False
 except Exception:
     creds_pass = False
     pass
 
+# get api ticket objects
+tickets_objs = zenpy_client.tickets()
+tickets = [t for t in tickets_objs]
+
+# get api user objects
+users_objs = zenpy_client.users()
+users = [u for u in users_objs]
 
 
 # Controller
@@ -45,10 +44,13 @@ except Exception:
 @app.route('/', methods=["GET"])
 def home():
 
-    # if cedentials do not work, redirect to error page
+    # if cedentials do not work, redirect to api error page
     if creds_pass == False:
-        return redirect(url_for('api_error'))
+        error_code = '302 - API Currently Unavailable'
+        msg = 'Please check API cedentials and try again.'
+        return redirect(url_for('api_error', msg=msg, code=error_code))
 
+    # headers for page
     headers = ['', 'Ticket Number', 'Subject']
 
     # get page pagination args
@@ -75,7 +77,7 @@ def home():
 # Page to display if api error occurs
 @app.route('/api_error')
 def api_error():
-    return render_template('api_error.html', code=302)
+    return render_template('api_error.html', code=request.args.get('code'), msg=request.args.get('msg'))
 
 # Page that displays unique ticket details.
 @app.route('/ticket', methods=["GET"])
@@ -85,7 +87,13 @@ def ticket():
     id = request.args.get('id', None)
 
     # gets the ticket view and renders it
-    ticket_view = get_ticket_view(id, tickets, users)
+    try:
+        ticket_view = get_ticket_view(id, tickets, users)
+    except Exception as e:
+        error =  'Error getting ticket. '+ str(e)
+        error_code = '404 - URL not found'
+        return redirect(url_for('api_error', msg=error, code=error_code))
+
     return render_template('ticket.html', ticket=ticket_view)
 
 # Starts the site.
