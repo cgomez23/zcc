@@ -14,14 +14,18 @@ def get_ticket_list(tickets):
 # args: int
 # return: api ticket object
 def get_ticket(id, tickets):
-    if type(id) != int:  
+    # id needs to be string from url
+    if type(id) != str:
+        raise TypeError('Not a string')
+    # id must be a string with a numeric character
+    if not id.isnumeric():  
         raise TypeError("Not a valid ID")
-
+    id = int(id)
     for t in tickets:
         if t.id == id:
             # print(t)
             return t
-
+    # id must exists in the database
     raise ValueError("ID is not recognized.")
 
 # Function to get the requester name for unique ticket.
